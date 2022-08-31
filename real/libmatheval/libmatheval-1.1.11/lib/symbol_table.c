@@ -8,19 +8,16 @@
 #include "common.h"
 #include <stdio.h>
 #include <stddef.h>
-#include <libio.h>
-#include <_G_config.h>
 #include <wchar.h>
 #include <string.h>
-#include <xlocale.h>
 #include "xmalloc.h"
 #include "symbol_table.h"
-/* 
+/*
  * Copyright (C) 1999, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2011,
  * 2012, 2013 Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GNU libmatheval
- * 
+ *
  * GNU libmatheval is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
@@ -77,20 +74,20 @@ symbol_table_create(int length)
 		"csc", "asin", "acos", "atan", "acot", "asec", "acsc",
 		"sinh", "cosh", "tanh", "coth", "sech", "csch",
 		"asinh", "acosh", "atanh", "acoth", "asech", "acsch",
-		"abs", "step", "delta", "nandelta", "erf", 
+		"abs", "step", "delta", "nandelta", "erf",
 	};			/* Symbol table predefined functions
 				 * names. */
 	static double   (*functions[]) (double) = {
-	exp, log, sqrt, sin, cos, tan, math_cot, math_sec, math_csc, asin, acos, atan, math_acot, math_asec, math_acsc, sinh, cosh, tanh, math_coth, math_sech, math_csch, math_asinh, math_acosh, math_atanh, math_acoth, math_asech, math_acsch, fabs, math_step, math_delta, math_nandelta, erf};	/* Symbol 
-																																				 * table 
-																																				 * predefined 
-																																				 * functions 
-																																				 * pointers 
-																																				 * to 
-																																				 * functions 
-																																				 * to 
-																																				 * calculate 
-																																				 * them. 
+	exp, log, sqrt, sin, cos, tan, math_cot, math_sec, math_csc, asin, acos, atan, math_acot, math_asec, math_acsc, sinh, cosh, tanh, math_coth, math_sech, math_csch, math_asinh, math_acosh, math_atanh, math_acoth, math_asech, math_acsch, fabs, math_step, math_delta, math_nandelta, erf};	/* Symbol
+																																				 * table
+																																				 * predefined
+																																				 * functions
+																																				 * pointers
+																																				 * to
+																																				 * functions
+																																				 * to
+																																				 * calculate
+																																				 * them.
 																																				 */
 	int             i;	/* Loop counter.  */
 
@@ -131,7 +128,7 @@ symbol_table_destroy(SymbolTable * symbol_table)
 	if (--symbol_table->reference_count > 0)
 		return;
 
-	/* Delete hash table as well as data structure representing symbol 
+	/* Delete hash table as well as data structure representing symbol
 	 * table. */
 	for (i = 0; i < symbol_table->length; i++)
 		for (curr = symbol_table->records[i].next; curr;) {
@@ -152,7 +149,7 @@ symbol_table_insert(SymbolTable * symbol_table, char *name, char type, ...)
 	va_list         ap;	/* Function variable argument list.  */
 	int             i;	/* Loop counter.  */
 
-	/* Check if symbol already in table and, if affirmative and record 
+	/* Check if symbol already in table and, if affirmative and record
 	 * type same as type given, return corresponding record
 	 * immediately. */
 	if ((record = symbol_table_lookup(symbol_table, name))) {
@@ -185,7 +182,7 @@ symbol_table_insert(SymbolTable * symbol_table, char *name, char type, ...)
 	}
 	va_end(ap);
 
-	/* Calculate hash value and put record in corresponding hash table 
+	/* Calculate hash value and put record in corresponding hash table
 	 * bucket. */
 	i = hash(name, symbol_table->length);
 	record->next = symbol_table->records[i].next;
@@ -198,10 +195,10 @@ Record         *
 symbol_table_lookup(SymbolTable * symbol_table, char *name)
 {
 	int             i;	/* Hash value. */
-	Record         *curr;	/* Pointer to current symbol table record. 
+	Record         *curr;	/* Pointer to current symbol table record.
 				 */
 
-	/* 
+	/*
 	 * Calcuate hash value for name given.
 	 */
 	i = hash(name, symbol_table->length);
@@ -232,7 +229,7 @@ symbol_table_clear_flags(SymbolTable * symbol_table)
 int
 symbol_table_get_flagged_count(SymbolTable * symbol_table)
 {
-	int             count;	/* Number of flagged symbol table records. 
+	int             count;	/* Number of flagged symbol table records.
 				 */
 	Record         *curr;	/* Pointer to current symbol table record
 				 * while traversing hash table bucket. */
@@ -254,7 +251,7 @@ symbol_table_get_flagged(SymbolTable * symbol_table, Record ** records,
 {
 	int             count;	/* Number of pointers to symbol table
 				 * records put into given array. */
-	Record         *curr;	/* Pointers to current symbol table record 
+	Record         *curr;	/* Pointers to current symbol table record
 				 * while traversing hash table bucket.  */
 	int             i;	/* Loop counter.  */
 

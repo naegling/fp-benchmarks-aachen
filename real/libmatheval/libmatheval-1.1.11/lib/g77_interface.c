@@ -6,20 +6,17 @@
 #include <sys/cdefs.h>
 #include <stdio.h>
 #include <stddef.h>
-#include <libio.h>
-#include <_G_config.h>
 #include <wchar.h>
 #include <stdarg.h>
 #include <string.h>
-#include <xlocale.h>
 #include "xmalloc.h"
 #include "matheval.h"
-/* 
+/*
  * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2011, 2012,
  * 2013 Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GNU libmatheval
- * 
+ *
  * GNU libmatheval is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
@@ -57,7 +54,7 @@ evaluator_create__(char *string, int length)
 {
 	char           *stringz;	/* Zero-terminated string
 					 * representing function.  */
-	int64_t         evaluator;	/* Evaluator created for function. 
+	int64_t         evaluator;	/* Evaluator created for function.
 					 */
 
 	/* Copy string passed from Fortran code and terminate it with
@@ -89,7 +86,7 @@ evaluator_evaluate__(int64_t * evaluator, int *count, char *names,
 {
 	char          **names_copy;	/* Copy of variable names.  Names
 					 * are passed in single string
-					 * from Fortran code, delimited by 
+					 * from Fortran code, delimited by
 					 * blanks, while
 					 * evaluator_evaluate() function
 					 * expects array of strings.  */

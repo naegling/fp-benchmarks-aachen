@@ -6,22 +6,19 @@
 #include <gnu/stubs.h>
 #include <gnu/stubs-64.h>
 #include <stddef.h>
-#include <libio.h>
-#include <_G_config.h>
 #include <wchar.h>
 #include <stdarg.h>
 #include <string.h>
-#include <xlocale.h>
 #include "xmalloc.h"
 #include "matheval.h"
 #include "node.h"
 #include "symbol_table.h"
-/* 
+/*
  * Copyright (C) 1999, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2011,
  * 2012, 2013 Free Software Foundation, Inc.
- * 
+ *
  * This file is part of GNU libmatheval
- * 
+ *
  * GNU libmatheval is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
@@ -54,7 +51,7 @@
 extern int      yyparse();
 
 /* Following variables are needed for parsing (parser is able to
- * communicate with program from which it is used through global variables 
+ * communicate with program from which it is used through global variables
  * only). */
 char           *input_string;	/* String representing function.  */
 Node           *root;		/* Root of tree representation of
@@ -69,19 +66,19 @@ typedef struct {
 	SymbolTable    *symbol_table;	/* Evalutor symbol table.  */
 	char           *string;	/* Evaluator textual representation. */
 	int             count;	/* Number of evaluator variables. */
-	char          **names;	/* Array of pointers to evaluator variable 
+	char          **names;	/* Array of pointers to evaluator variable
 				 * names. */
 } Evaluator;
 
 void           *
 evaluator_create(char *string)
 {
-	Evaluator      *evaluator;	/* Evaluator representing function 
+	Evaluator      *evaluator;	/* Evaluator representing function
 					 * given by string.  */
 	char           *stringn;	/* Copy of string terminated by
 					 * newline character.  */
 
-	/* Copy string representing function and terminate it with newline 
+	/* Copy string representing function and terminate it with newline
 	 * (this is necessary because parser expect newline character to
 	 * terminate its input). */
 	stringn = XMALLOC(char, strlen(string) + 2);
@@ -126,7 +123,7 @@ void
 evaluator_destroy(void *evaluator)
 {
 	/* Destroy tree represention of function, symbol table, array of
-	 * pointers to evaluator variable names, as well as data structure 
+	 * pointers to evaluator variable names, as well as data structure
 	 * representing evaluator. */
 	node_destroy(((Evaluator *) evaluator)->root);
 	symbol_table_destroy(((Evaluator *) evaluator)->symbol_table);
@@ -143,7 +140,7 @@ evaluator_evaluate(void *evaluator, int count, char **names,
 				 * given variable name.  */
 	int             i;	/* Loop counter.  */
 
-	/* Assign values to symbol table records corresponding to variable 
+	/* Assign values to symbol table records corresponding to variable
 	 * names. */
 	for (i = 0; i < count; i++) {
 		record =
@@ -182,7 +179,7 @@ void
 evaluator_get_variables(void *evaluator, char ***names, int *count)
 {
 	Record        **records;	/* Array of symbol table records
-					 * containing evaluator variables. 
+					 * containing evaluator variables.
 					 */
 	int             i;	/* Loop counter.  */
 
